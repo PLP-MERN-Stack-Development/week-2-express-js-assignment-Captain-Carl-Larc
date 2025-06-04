@@ -1,54 +1,36 @@
-// Import required modules
+// server.js
 const express = require('express');
-const bodyParser = require('body-parser');
-const { v4: uuidv4 } = require('uuid');
-const connectDB = require('./config/db'); 
+const dotenv = require('dotenv');
+const connectDB = require('./config/db');
+const productRoutes = require('./routes/productRoutes');
 
-
-// Sample in-memory products database
-// let products = [
-//   {
-//     id: '1',
-//     name: 'Laptop',
-//     description: 'High-performance laptop with 16GB RAM',
-//     price: 1200,
-//     category: 'electronics',
-//     inStock: true
-//   },
-//   {
-//     id: '2',
-//     name: 'Smartphone',
-//     description: 'Latest model with 128GB storage',
-//     price: 800,
-//     category: 'electronics',
-//     inStock: true
-//   },
-//   {
-//     id: '3',
-//     name: 'Coffee Maker',
-//     description: 'Programmable coffee maker with timer',
-//     price: 50,
-//     category: 'kitchen',
-//     inStock: false
-//   }
-// ];
-
-//connect to MongoDB
+dotenv.config();
 connectDB();
 
-// Initialize Express app
 const app = express();
-const PORT = process.env.PORT
+app.use(express.json());
 
-// TODO: Implement custom middleware for:
-// - Request logging
-// - Authentication
-// - Error handling
+// Routes setup
+app.use('/api/products', productRoutes);
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+//error handling middleware
+app.use((err, req, res) => {
+    console.error(err.stack); // Log the full error stack for debugging
+
+    // Default to 500 Internal Server Error
+    const statusCode = 500;
+    const message = 'Server Error';
+
+    // Send a generic 500 response for unhandled errors
+    res.status(statusCode).json({
+        message: message,
+        error: err.message // Include the error message for more context
+    });
 });
 
-// Export the app for testing purposes
-module.exports = app; 
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);    
+    console.log(`Product API: http://localhost:${PORT}/api/products`);
+});
