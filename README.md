@@ -37,15 +37,106 @@ You will:
 - npm or yarn
 - Postman, Insomnia, or curl for API testing
 
-## API Endpoints
+## API Documentation
 
-The API will have the following endpoints:
+### Base URL
 
-- `GET /api/products`: Get all products
-- `GET /api/products/:id`: Get a specific product
-- `POST /api/products`: Create a new product
-- `PUT /api/products/:id`: Update a product
-- `DELETE /api/products/:id`: Delete a product
+    http://localhost:3000/api/products
+
+### Endpoints
+
+#### 1. Get All Products
+- **Endpoint:** `GET /api/products`
+- **Description:** Retrieve a list of all products.
+- **Response Example:**
+    ```json
+    [
+      {
+        "_id": "665f1c2e8e4b2a001e7e6a1a",
+        "name": "Laptop",
+        "description": "High-performance laptop with 16GB RAM",
+        "price": 1200,
+        "category": "electronics",
+        "inStock": true
+      },
+      ...
+    ]
+    ```
+
+#### 2. Get Product by ID
+- **Endpoint:** `GET /api/products/:id`
+- **Description:** Retrieve a single product by its ID.
+- **Response Example:**
+    ```json
+    {
+      "_id": "665f1c2e8e4b2a001e7e6a1a",
+      "name": "Laptop",
+      "description": "High-performance laptop with 16GB RAM",
+      "price": 1200,
+      "category": "electronics",
+      "inStock": true
+    }
+    ```
+
+#### 3. Create a New Product
+- **Endpoint:** `POST /api/products`
+- **Description:** Add a new product.
+- **Request Body Example:**
+    ```json
+    {
+      "name": "Coffee Maker",
+      "description": "Programmable coffee maker with timer",
+      "price": 50,
+      "category": "kitchen",
+      "inStock": false
+    }
+    ```
+- **Response Example:**
+    ```json
+    {
+      "_id": "665f1c2e8e4b2a001e7e6a1b",
+      "name": "Coffee Maker",
+      "description": "Programmable coffee maker with timer",
+      "price": 50,
+      "category": "kitchen",
+      "inStock": false
+    }
+    ```
+
+#### 4. Update a Product
+- **Endpoint:** `PUT /api/products/:id`
+- **Description:** Update an existing product by its ID.
+- **Request Body Example:**
+    ```json
+    {
+      "name": "Updated Laptop",
+      "description": "Updated description",
+      "price": 1300,
+      "category": "electronics",
+      "inStock": true
+    }
+    ```
+- **Response Example:**
+    ```json
+    {
+      "_id": "665f1c2e8e4b2a001e7e6a1a",
+      "name": "Updated Laptop",
+      "description": "Updated description",
+      "price": 1300,
+      "category": "electronics",
+      "inStock": true
+    }
+    ```
+
+#### 5. Delete a Product
+- **Endpoint:** `DELETE /api/products/:id`
+- **Description:** Delete a product by its ID.
+- **Response Example:**
+    ```json
+    {
+      "message": "Product deleted successfully"
+    }
+    ```
 
 ## Submission
 
@@ -60,4 +151,4 @@ Your work will be automatically submitted when you push to your GitHub Classroom
 
 - [Express.js Documentation](https://expressjs.com/)
 - [RESTful API Design Best Practices](https://restfulapi.net/)
-- [HTTP Status Codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) 
+- [HTTP Status Codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
